@@ -1,6 +1,8 @@
 <script setup>
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { ref, reactive } from 'vue'
+// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import DataTable from '@/components/datatable/DataTable.vue'
+import { columns } from './chunks/Column'
+import { ref, provide } from 'vue'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import { Button } from '@/components/ui/button'
 import { storeToRefs } from 'pinia'
@@ -53,7 +55,7 @@ const openAddProductDialog = () => {
   updateProduct.value = {};
 }
 
-const openEditDialog = (product) => {
+const openEditDialog = (product ) => {
   isOpen.value = true
   isEdit.value = true;
   updateProduct.value = product;
@@ -68,7 +70,8 @@ const openDeleteDialog = (id) => {
   isDelete.value = true;
   deleteProductId.value = id
 }
-
+provide('openEditDialog', openEditDialog)
+provide('openDeleteDialog', openDeleteDialog)
 </script>
 
 <template>
@@ -81,12 +84,13 @@ const openDeleteDialog = (id) => {
       >
         Add Product
       </button>
+      <DataTable :columns="columns" :data="data || []" />
 
       <!-- Table -->
       <div class="mt-10 overflow-x-auto bg-white shadow-lg rounded-lg p-4">
-        <table class="min-w-full table-auto border-collapse text-sm">
+        <!-- <table class="min-w-full table-auto border-collapse text-sm"> -->
           <!-- Table Header -->
-          <thead>
+          <!-- <thead>
             <tr class="bg-gradient-to-r from-blue-600 to-blue-400 text-white text-lg">
               <th class="font-bold py-3 px-6 text-center">No.</th>
               <th class="font-bold py-3 px-6 text-center">Name</th>
@@ -95,10 +99,10 @@ const openDeleteDialog = (id) => {
               <th class="font-bold py-3 px-6 text-center">Profit Per Item</th>
               <th class="font-bold py-3 px-6 text-center">Actions</th>
             </tr>
-          </thead>
+          </thead> -->
 
           <!-- Table Body -->
-          <tbody>
+          <!-- <tbody>
             <tr
               v-for="(product, index) in data"
               :key="index + 1"
@@ -109,17 +113,17 @@ const openDeleteDialog = (id) => {
               <td class="text-center py-3 px-6">{{ product.stock }}</td>
               <td class="text-center py-3 px-6">$ {{ product.sellingPrice }}</td>
               <td class="text-center py-3 px-6">$ {{ product.profitPerItem }}</td>
-              <td class="flex justify-center gap-4 py-3 px-6">
+              <td class="flex justify-center gap-4 py-3 px-6"> -->
                 <!-- Add to Cart Button -->
-                <button
+                <!-- <button
                   class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded-md shadow"
                   @click="cartStore.addToCart(product)"
                 >
                   Add to Cart
-                </button>
+                </button> -->
 
                 <!-- Edit & Delete Buttons -->
-                <div class="flex gap-2">
+                <!-- <div class="flex gap-2">
                   <button
                     class="bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-4 py-2 rounded-md shadow"
                     @click="openEditDialog(product)"
@@ -136,7 +140,7 @@ const openDeleteDialog = (id) => {
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
 
       <!-- Loader -->

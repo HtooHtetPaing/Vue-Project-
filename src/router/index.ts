@@ -3,10 +3,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import ProductView from "../modules/product/ProductView.vue";
 import RecordView from "@/modules/SaleRecord/RecordView.vue";
 import CartView from "@/modules/Cart/CartView.vue";
+import Applayouts from "@/layouts/Applayouts.vue";
 
 const routes = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
+        {
+            path: '/',
+            name: '',
+            component: Applayouts,
+            children: [
+                
         // {
         //     path: "/",
         //     name: "home",
@@ -26,6 +33,8 @@ const routes = createRouter({
             path: "/cart",
             name: "cart",
             component: CartView,
+        }
+    ]
         }
     ],
 })
